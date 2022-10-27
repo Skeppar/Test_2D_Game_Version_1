@@ -145,7 +145,5 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2.dispose(); // Works without but this saves some memory.
 
-
-
     }
 }
