@@ -1,5 +1,7 @@
 package main;
 
+import Entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,8 +9,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Screen settings
     final int originalTileSize = 16; // 16x16 tiles is the default size. This is standard for many old retro games.
-    final int scale = 3; // 16 pixels is too small for a modern day screen, but if you multiply it by 3 it will still look the same but be bigger.
-    final int tileSize = originalTileSize * scale; // 48x48 is not the actual size of a tile.
+    final int scale = 4; // 16 pixels is too small for a modern day screen, but if you multiply it by 3 it will still look the same but be bigger.
+    public final int tileSize = originalTileSize * scale; // 48x48 is not the actual size of a tile.
     final int maxScreenCol = 20;
     final int getMaxScreenRow = 15;
     final int screenWidth = tileSize * maxScreenCol; // 960 pixels.
@@ -18,11 +20,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyH = new KeyHandler(); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
     Thread gameThread; // Thread is something you can start and stop, it will keep the program running. This will make the game run even without the player doing anything.
-
-    // Set players default position.
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
+    Player player = new Player(this,keyH);
 
     public GamePanel() {
 
@@ -116,18 +114,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
-        if(keyH.upPressed) {
-            playerY -= playerSpeed;
-        }
-        else if (keyH.downPressed) {
-            playerY += playerSpeed;
-        }
-        else if(keyH.leftPressed) {
-            playerX -= playerSpeed;
-        }
-        else if(keyH.rightPressed) {
-            playerX += playerSpeed;
-        }
+        player.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -137,11 +124,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D)g;
 
-        g2.setColor(Color.white);
-
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
-        // Remember to use playerX/Y and tileSize and not numbers, if you want to change the map or character size later you'd have to change it in several places.
-        // If you use number the player won't be able to change position. That will be done in the update method.
+        player.draw(g2);
 
         g2.dispose(); // Works without but this saves some memory.
 
