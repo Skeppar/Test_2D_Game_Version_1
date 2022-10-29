@@ -1,6 +1,7 @@
 package main;
 
-import Entity.Player;
+import entity.Player;
+import tiles.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     int FPS = 60;
 
+    TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
     Thread gameThread; // Thread is something you can start and stop, it will keep the program running. This will make the game run even without the player doing anything.
     Player player = new Player(this,keyH);
@@ -123,6 +125,8 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g); // Super means the parent class of this class, which is JPanel.
 
         Graphics2D g2 = (Graphics2D)g;
+
+        tileM.draw(g2); // This has to be before player so that the player is on top of the tiles.
 
         player.draw(g2);
 
