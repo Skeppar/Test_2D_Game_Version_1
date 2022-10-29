@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity{
 
@@ -33,16 +34,17 @@ public class Player extends Entity{
 
         try {
 
-            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Away_Moving_1.png"));
-            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Away_Moving_2.png"));
-            still = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Away_Still.png"));
-            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Front_Moving_1.png"));
-            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Front_Moving_2.png"));
-            dStill = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Front_Still.png"));
-            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Right_Moving_1.png"));
-            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Right_Moving_2.png"));
-            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Left_Moving_1.png"));
-            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Left_Moving_2.png"));
+            // up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Away_Moving_1.png")); // IntelliJ recommends requireNonNull. It doesn't make a difference in functionality, since either way if it's null it won't work.
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Away_Moving_1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Away_Moving_2.png")));
+            still = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Away_Still.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Front_Moving_1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Front_Moving_2.png")));
+            dStill = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Front_Still.png")));
+            right1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Right_Moving_1.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Right_Moving_2.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Left_Moving_1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Left_Moving_2.png")));
 
         }catch (IOException e) {
             e.printStackTrace();
