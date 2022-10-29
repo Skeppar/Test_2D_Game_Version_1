@@ -5,6 +5,7 @@ import main.GamePanel;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Objects;
 
 public class TileManager {
 
@@ -22,14 +23,15 @@ public class TileManager {
         try {
 
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("/tiles/Grass_1.png)"));
-            tile[0].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Away_Moving_1.png"));
+            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Grass_1.png")));
 
             tile[1] = new Tile();
-            //tile[1].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Wall_1.png)"));
+            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Wall_1.png")));
 
             tile[2] = new Tile();
-            //tile[2].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Water_1.png)"));
+            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Water_1.png")));
+            //tile[2].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tile/Water_1.png")); // Don't have to use requireNonNull but IntelliJ recommends the above way.
+
 
         } catch (IOException e) {
             e.printStackTrace();
