@@ -40,6 +40,24 @@ public class TileManager {
 
     public void draw(Graphics2D g2) {
 
-        g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null); // Draw out the grass tile
+        // g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null); // Draw out the grass tile
+
+        int col = 0;
+        int row = 0;
+        int x = 0;
+        int y = 0;
+
+        while (col < gp.getMaxScreenCol() && row < gp.getGetMaxScreenRow()) {
+            g2.drawImage(tile[0].image, x, y, gp.tileSize, gp.tileSize, null);
+            col++;
+            x += gp.getTileSize();
+
+            if(col == gp.getMaxScreenCol()) {
+                col = 0;
+                x = 0;
+                row++;
+                y += gp.getTileSize();
+            }
+        }
     }
 }

@@ -133,4 +133,24 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose(); // Works without but this saves some memory.
 
     }
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
+    public int getMaxScreenCol() {
+        return maxScreenCol;
+    }
+
+    public int getGetMaxScreenRow() {
+        return getMaxScreenRow;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
 }

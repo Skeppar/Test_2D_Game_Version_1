@@ -53,18 +53,34 @@ public class Player extends Entity{
 
         if(keyH.upPressed || keyH.downPressed || keyH.rightPressed || keyH.leftPressed) {
 
-            if (keyH.upPressed) {
+            if (keyH.upPressed && keyH.rightPressed) {
                 direction = "up";
                 y -= speed;
-            } else if (keyH.downPressed) {
+                x += speed;
+            } else if(keyH.upPressed && keyH.leftPressed){
+                direction = "up";
+                y -= speed;
+                x -= speed;
+            } else if (keyH.downPressed && keyH.rightPressed) {
                 direction = "down";
                 y += speed;
-            } else if (keyH.leftPressed) {
-                direction = "left";
+                x += speed;
+            } else if(keyH.downPressed && keyH.leftPressed){
+                direction = "down";
+                y += speed;
                 x -= speed;
+            } else if (keyH.upPressed) {
+                    direction = "up";
+                    y -= speed;
             } else if (keyH.rightPressed) {
                 direction = "right";
                 x += speed;
+            } else if (keyH.leftPressed) {
+                direction = "left";
+                x -= speed;
+            } else {
+                direction = "down";
+                y += speed;
             }
 
             // If you want more animations for walking, just add more numbers after 2. Change here and in draw.
