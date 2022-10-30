@@ -17,6 +17,12 @@ public class GamePanel extends JPanel implements Runnable {
     final int screenWidth = tileSize * maxScreenCol; // 960 pixels.
     final int screenHeight = tileSize * maxScreenRow; // 720 pixels.
 
+    // World settings - If the col and row are just one off it won't load, make sure that the map size is correct!
+    final int maxWorldCol = 90;
+    final int maxWorldRow = 90;
+    final int worldWidth = tileSize * maxWorldCol;
+    final int WorldHeight = tileSize * maxWorldRow;
+
     int FPS = 60;
 
     TileManager tileM = new TileManager(this);
@@ -152,5 +158,25 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int getScreenHeight() {
         return screenHeight;
+    }
+
+    public int getMaxWorldCol() {
+        return maxWorldCol;
+    }
+
+    public int getMaxWorldRow() {
+        return maxWorldRow;
+    }
+
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return WorldHeight;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

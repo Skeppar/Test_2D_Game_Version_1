@@ -19,9 +19,9 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[10];
-        mapTileNum = new int[gp.getMaxScreenCol()][gp.getMaxScreenRow()];
+        mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTitleImage();
-        loadMap();
+        loadMap("maps/bigTestMap.txt");
     }
 
     public void getTitleImage() {
@@ -38,26 +38,34 @@ public class TileManager {
             tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Water_1.png")));
             //tile[2].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tile/Water_1.png")); // Don't have to use requireNonNull but IntelliJ recommends the above way.
 
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Sand_1.png")));
+
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Dirt_1.png")));
+
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Tree_1.png")));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void loadMap() {
+    public void loadMap(String mapPath) {
 
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("maps/testMap1.txt");
+            InputStream is = getClass().getClassLoader().getResourceAsStream(mapPath); // Gets teh mapPath from TileManager method further up.
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
             int row = 0;
 
-            while (col < gp.getMaxScreenCol() && row < gp.getMaxScreenRow()) {
+            while (col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow()) { // With gp.getMaxScreenCol() we get the screen size, now we use the map size.
 
                 String line = br.readLine(); // This reads a single line from a text file, which then becomes a string.
 
-                while(col < gp.getMaxScreenCol()) {
+                while(col < gp.getMaxWorldRow()) {
 
                     String numbers[] = line.split(" "); // Use regex to split all numbers on space, and put them  in an array.
 
@@ -66,7 +74,7 @@ public class TileManager {
                     mapTileNum[col][row] = num; // Put in al the numbers in the mapTileNum.
                     col++;
                 }
-                if(col == gp.getMaxScreenCol()) { // If col is max width of the map then it resets col to 0 and the row +1, meaning it begins at a new line.
+                if(col == gp.getMaxWorldCol()) { // If col is max width of the map then it resets col to 0 and the row +1, meaning it begins at a new line.
                     col = 0;
                     row++;
                 }
@@ -81,24 +89,24 @@ public class TileManager {
 
         // g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null); // Draw out the grass tile
 
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
+        int worldCol = 0;
+        int worldRow = 0;
 
-        while (col < gp.getMaxScreenCol() && row < gp.getMaxScreenRow()) {
+        while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
 
-            int tileNum = mapTileNum[col][row];
+            int tileNum = mapTileNum[worldCol][worldRow];
 
-            g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
-            col++;
-            x += gp.getTileSize();
+            int worldX = worldCol * gp.getTileSize(); // 0 * 48 now, if the player is on tile col 1 then it will be 1 * 48.
+            int worldY = worldRow * gp.getTileSize(); // 0 * 48
+            int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().screenX;
+            int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().screenY;
 
-            if(col == gp.getMaxScreenCol()) {
-                col = 0;
-                x = 0;
-                row++;
-                y += gp.getTileSize();
+            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            worldCol++;
+
+            if(worldCol == gp.getMaxWorldCol()) {
+                worldCol = 0;
+                worldRow++;
             }
         }
     }
