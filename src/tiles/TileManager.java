@@ -67,7 +67,7 @@ public class TileManager {
 
                 while(col < gp.getMaxWorldRow()) {
 
-                    String numbers[] = line.split(" "); // Use regex to split all numbers on space, and put them  in an array.
+                    String[] numbers = line.split(" "); // Use regex to split all numbers on space, and put them  in an array.
 
                     int num = Integer.parseInt(numbers[col]); // Use col as an index. Change the string above to an int so that we get numbers in int format.
 
@@ -101,7 +101,14 @@ public class TileManager {
             int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().screenX;
             int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().screenY;
 
-            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            if( worldX + gp.tileSize > gp.getPlayer().worldX - gp.getPlayer().screenX && // Only draws the map if that is in the screen. Without this it will load the entire map.
+                worldX - gp.tileSize < gp.getPlayer().worldX + gp.getPlayer().screenX && // +/- gp.tileSize is to make sure it doesn't get a black line around the map when moving around. If you move really fast might have to change this to more than one tile size.
+                worldY + gp.tileSize > gp.getPlayer().worldY - gp.getPlayer().screenY &&
+                worldY - gp.tileSize < gp.getPlayer().worldY + gp.getPlayer().screenY) {
+
+                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            }
+
             worldCol++;
 
             if(worldCol == gp.getMaxWorldCol()) {
