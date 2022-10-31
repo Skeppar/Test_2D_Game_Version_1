@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
     Thread gameThread; // Thread is something you can start and stop, it will keep the program running. This will make the game run even without the player doing anything.
+    CollisionCheck cCheck = new CollisionCheck(this);
     Player player = new Player(this,keyH);
 
     public GamePanel() {
@@ -178,5 +179,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public CollisionCheck getcCheck() {
+        return cCheck;
     }
 }

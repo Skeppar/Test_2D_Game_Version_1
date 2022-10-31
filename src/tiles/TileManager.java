@@ -33,10 +33,12 @@ public class TileManager {
 
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Wall_1.png")));
+            tile[1].collision = true;
 
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Water_1.png")));
             //tile[2].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tile/Water_1.png")); // Don't have to use requireNonNull but IntelliJ recommends the above way.
+            tile[2].collision = true;
 
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Sand_1.png")));
@@ -46,6 +48,7 @@ public class TileManager {
 
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Tree_1.png")));
+            tile[5].collision = true;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,5 +119,13 @@ public class TileManager {
                 worldRow++;
             }
         }
+    }
+
+    public Tile[] getTile() {
+        return tile;
+    }
+
+    public int[][] getMapTileNum() {
+        return mapTileNum;
     }
 }

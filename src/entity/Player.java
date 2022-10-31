@@ -25,6 +25,8 @@ public class Player extends Entity{
         screenX = gp.getScreenWidth()/2 - (gp.tileSize/2);
         screenY = gp.getScreenHeight()/2 - (gp.tileSize/2);
 
+        solidArea = new Rectangle(8, 16, 32, 32); // The area the player is solid now starts 8px in from the right and 16 down from the top. And is 32*32 big, which is a smaller box around the body to the feet.
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -60,36 +62,63 @@ public class Player extends Entity{
 
     public void update() {
 
+        // First we check the direction, after this we check the collision.
         if(keyH.upPressed || keyH.downPressed || keyH.rightPressed || keyH.leftPressed) {
 
             if (keyH.upPressed && keyH.rightPressed) {
-                direction = "up";
-                worldY -= speed;
-                worldX += speed;
+                direction = "upR";
             } else if(keyH.upPressed && keyH.leftPressed){
-                direction = "up";
-                worldY -= speed;
-                worldX -= speed;
+                direction = "upL";
             } else if (keyH.downPressed && keyH.rightPressed) {
-                direction = "down";
-                worldY += speed;
-                worldX += speed;
+                direction = "downR";
             } else if(keyH.downPressed && keyH.leftPressed){
-                direction = "down";
-                worldY += speed;
-                worldX -= speed;
+                direction = "downL";
             } else if (keyH.upPressed) {
                     direction = "up";
-                worldY -= speed;
             } else if (keyH.rightPressed) {
                 direction = "right";
-                worldX += speed;
             } else if (keyH.leftPressed) {
                 direction = "left";
-                worldX -= speed;
             } else {
                 direction = "down";
-                worldY += speed;
+            }
+
+            // Check tile collision
+            collisionOn = false;
+            gp.getcCheck().checkTile(this); // Pass player class as the entity.
+
+            // If collision is false player can move.
+            if(!collisionOn) {
+                switch (direction) {
+                    case "upR" -> {
+                        worldY -= speed;
+                        worldX += speed;
+                    }
+                    case "upL" -> {
+                        worldY -= speed;
+                        worldX -= speed;
+                    }
+                    case "downR" -> {
+                        worldY += speed;
+                        worldX += speed;
+                    }
+                    case "downL" -> {
+                        worldY += speed;
+                        worldX -= speed;
+                    }
+                    case "up" -> {
+                        worldY -= speed;
+                    }
+                    case "down" -> {
+                        worldY += speed;
+                    }
+                    case "left" -> {
+                        worldX -= speed;
+                    }
+                    case "right" -> {
+                        worldX += speed;
+                    }
+                }
             }
 
             // If you want more animations for walking, just add more numbers after 2. Change here and in draw.
@@ -117,8 +146,9 @@ public class Player extends Entity{
         BufferedImage image = null;
 
         // If you want more animations for walking, just add more numbers after 2. Change here and in update.
+        // Add diagonal animations later.
         switch (direction) {
-            case "up" -> {
+            case "up", "upR", "upL" -> {
                 if (spriteNum == 1) {
                     image = up1;
                 }
@@ -126,7 +156,7 @@ public class Player extends Entity{
                     image = up2;
                 }
             }
-            case "down" -> {
+            case "down", "downR", "downL" -> {
                 if (spriteNum == 1) {
                     image = down1;
                 }
