@@ -1,6 +1,8 @@
 package main;
 
 import entity.Player;
+import objects.OBJ_Key;
+import objects.SuperObject;
 import tiles.TileManager;
 
 import javax.swing.*;
@@ -29,7 +31,9 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler(); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
     Thread gameThread; // Thread is something you can start and stop, it will keep the program running. This will make the game run even without the player doing anything.
     CollisionCheck cCheck = new CollisionCheck(this);
-    Player player = new Player(this,keyH);
+    AssetManager aManager = new AssetManager(this);
+    Player player = new Player(this, keyH);
+    SuperObject[] obj = new SuperObject[10];
 
     public GamePanel() {
 
@@ -38,6 +42,11 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // Drawing the things from this component will be done in an offscreen painting buffer. This can improve the rendering performance.
         this.addKeyListener(keyH);
         this.setFocusable(true); // The GamePanel can be "focused" to receive key input.
+    }
+
+    public void setUpGame() {
+
+        aManager.setObject();
     }
 
     public void startGameThread() {
@@ -91,14 +100,14 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        double drawInterval = 1000000000/FPS; // Nanoseconds divided by FPS, so this is 1sec/60.
+        double drawInterval = 1000000000 / FPS; // Nanoseconds divided by FPS, so this is 1sec/60.
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0; // Used to check FPS
         int drawCount = 0; // Used to check FPS
 
-        while(gameThread != null) {
+        while (gameThread != null) {
 
             currentTime = System.nanoTime();
 
@@ -106,14 +115,14 @@ public class GamePanel extends JPanel implements Runnable {
             timer += (currentTime - lastTime);
             lastTime = currentTime;
 
-            if(delta >= 1) { // This 1 is equal to the drawInterval.
+            if (delta >= 1) { // This 1 is equal to the drawInterval.
                 update();
                 repaint();
                 delta--; // Reset delta.
                 drawCount++; // This adds one to the drawCount every time it runs the loop, which should be 60 per second.
             }
 
-            if(timer >= 1000000000) { // Divide with 1b so that we only print this once every second and not every nanosecond.
+            if (timer >= 1000000000) { // Divide with 1b so that we only print this once every second and not every nanosecond.
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0; // Reset so that it doesn't increase but always shows the frame for the last second.
                 timer = 0;
@@ -131,9 +140,15 @@ public class GamePanel extends JPanel implements Runnable {
 
         super.paintComponent(g); // Super means the parent class of this class, which is JPanel.
 
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
 
         tileM.draw(g2); // This has to be before player so that the player is on top of the tiles.
+
+        for (SuperObject superObject : obj) { // obj.length is the length of the obj array in this class.
+            if (superObject != null) { // Check if the obj is null.
+                superObject.draw(g2, this);
+            }
+        }
 
         player.draw(g2);
 
@@ -143,14 +158,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int getTileSize() {
         return tileSize;
-    }
-
-    public int getMaxScreenCol() {
-        return maxScreenCol;
-    }
-
-    public int getMaxScreenRow() {
-        return maxScreenRow;
     }
 
     public int getScreenWidth() {
@@ -169,19 +176,19 @@ public class GamePanel extends JPanel implements Runnable {
         return maxWorldRow;
     }
 
-    public int getWorldWidth() {
-        return worldWidth;
-    }
-
-    public int getWorldHeight() {
-        return WorldHeight;
-    }
-
     public Player getPlayer() {
         return player;
     }
 
     public CollisionCheck getcCheck() {
         return cCheck;
+    }
+
+    public void setObj(SuperObject[] obj) {
+        this.obj = obj;
+    }
+
+    public SuperObject[] getObj() {
+        return obj;
     }
 }

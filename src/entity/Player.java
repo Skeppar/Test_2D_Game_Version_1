@@ -14,8 +14,11 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
 
-    public final int screenX; // ScreenX/Y will never change, and since they are set tp the middle of the screen, where the character is, the character will always be in the center.
+    public final int screenX; // ScreenX/Y will never change, and since they are set to the middle of the screen, where the character is, the character will always be in the center.
     public final int screenY;
+
+    int hasKey = 0;
+
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -26,6 +29,8 @@ public class Player extends Entity{
         screenY = gp.getScreenHeight()/2 - (gp.tileSize/2);
 
         solidArea = new Rectangle(8, 16, 32, 32); // The area the player is solid now starts 8px in from the right and 16 down from the top. And is 32*32 big, which is a smaller box around the body to the feet.
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
         setDefaultValues();
         getPlayerImage();
@@ -83,9 +88,13 @@ public class Player extends Entity{
                 direction = "down";
             }
 
-            // Check tile collision
+            // Check tile collision.
             collisionOn = false;
             gp.getcCheck().checkTile(this); // Pass player class as the entity.
+
+            // Check object collision.
+            int objIndex = gp.getcCheck().checkObject(this, true);
+            pickUpObject(objIndex);
 
             // If collision is false player can move.
             if(!collisionOn) {
@@ -130,6 +139,28 @@ public class Player extends Entity{
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+    }
+
+    public void pickUpObject(int i) {
+
+        if (i != 999) {
+            String objectName = gp.getObj()[i].getName();
+
+            switch (objectName) {
+                case "Key" -> {
+                    hasKey++;
+                    gp.getObj()[i] = null;
+                    System.out.println("Key: " + hasKey);
+                }
+                case "Door" -> {
+                    if(hasKey > 0) {
+                        gp.getObj()[i] = null;
+                        hasKey--;
+                        System.out.println("Key: " + hasKey);
+                    }
+                }
             }
         }
     }
