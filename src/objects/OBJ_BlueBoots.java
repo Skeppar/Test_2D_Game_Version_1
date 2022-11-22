@@ -7,9 +7,9 @@ import java.util.Objects;
 public class OBJ_BlueBoots extends SuperObject{
     public OBJ_BlueBoots() {
 
-        name = "Key";
+        name = "Boots";
         try{
-            image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("objects/BlueBoots_1.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("objects/BlueBoot.png")));
         }catch (IOException e) {
             e.printStackTrace();
         }
