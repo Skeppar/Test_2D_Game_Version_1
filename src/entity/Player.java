@@ -150,18 +150,21 @@ public class Player extends Entity{
 
             switch (objectName) {
                 case "Key" -> {
+                    gp.playSE(1); // Plays sound effect 1, which is named coin.
                     hasKey++;
                     gp.getObj()[i] = null;
                     System.out.println("Key: " + hasKey);
                 }
                 case "Door" -> {
                     if(hasKey > 0) {
+                        gp.playSE(4);
                         gp.getObj()[i] = null;
                         hasKey--;
                         System.out.println("Key: " + hasKey);
                     }
                 }
                 case "Boots" -> {
+                    gp.playSE(3);
                     speed += 1;
                     gp.getObj()[i] = null;
                 }
