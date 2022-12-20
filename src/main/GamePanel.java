@@ -22,16 +22,26 @@ public class GamePanel extends JPanel implements Runnable {
     // World settings - If the col and row are just one off it won't load, make sure that the map size is correct!
     final int maxWorldCol = 90;
     final int maxWorldRow = 90;
+
+    /*
+    // Not in use.
     final int worldWidth = tileSize * maxWorldCol;
     final int WorldHeight = tileSize * maxWorldRow;
+     */
 
+    // FPS
     int FPS = 60;
 
+    // System
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
-    Thread gameThread; // Thread is something you can start and stop, it will keep the program running. This will make the game run even without the player doing anything.
+    Sound sound = new Sound();
     CollisionCheck cCheck = new CollisionCheck(this);
     AssetManager aManager = new AssetManager(this);
+    Thread gameThread; // Thread is something you can start and stop, it will keep the program running. This will make the game run even without the player doing anything.
+
+
+    // Entity and Object
     Player player = new Player(this, keyH);
     SuperObject[] obj = new SuperObject[10];
 
@@ -47,6 +57,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void setUpGame() {
 
         aManager.setObject();
+
+        playMusic(0); // Plays the theme song.
     }
 
     public void startGameThread() {
@@ -154,6 +166,24 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2.dispose(); // Works without but this saves some memory.
 
+    }
+
+    public void playMusic(int i) {
+        // Selects file i from the array of all sound files, then plays and loops it.
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopMusic() {
+
+        sound.stop();
+    }
+
+    public void playSE(int i) {
+        // Sound effect doesn't need to loop since.
+        sound.setFile(i);
+        sound.play();
     }
 
     public int getTileSize() {
