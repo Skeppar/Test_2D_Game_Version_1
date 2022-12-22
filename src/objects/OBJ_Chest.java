@@ -7,11 +7,12 @@ import java.util.Objects;
 public class OBJ_Chest extends SuperObject{
     public OBJ_Chest() {
 
-        name = "Key";
+        name = "Chest";
         try{
             image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("objects/Chest_Gold_1.png")));
         }catch (IOException e) {
             e.printStackTrace();
         }
+        collision = true;
     }
 }

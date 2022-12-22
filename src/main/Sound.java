@@ -8,7 +8,7 @@ import java.net.URL;
 public class Sound {
 
     Clip clip;
-    URL soundURL[] = new URL[30]; // Use this URL to store the file path to the sound files under res/sound
+    URL[] soundURL = new URL[30]; // Use this URL to store the file path to the sound files under res/sound
 
     public Sound() {
 

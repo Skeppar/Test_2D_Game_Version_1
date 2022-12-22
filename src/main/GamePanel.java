@@ -35,9 +35,11 @@ public class GamePanel extends JPanel implements Runnable {
     // System
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
-    Sound sound = new Sound();
+    Sound music = new Sound();
+    Sound se = new Sound();
     CollisionCheck cCheck = new CollisionCheck(this);
     AssetManager aManager = new AssetManager(this);
+    public UI ui = new UI(this);
     Thread gameThread; // Thread is something you can start and stop, it will keep the program running. This will make the game run even without the player doing anything.
 
 
@@ -162,7 +164,11 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
+        // Player
         player.draw(g2);
+
+        // UI
+        ui.draw(g2);
 
         g2.dispose(); // Works without but this saves some memory.
 
@@ -170,20 +176,20 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void playMusic(int i) {
         // Selects file i from the array of all sound files, then plays and loops it.
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
 
     public void stopMusic() {
 
-        sound.stop();
+        music.stop();
     }
 
     public void playSE(int i) {
         // Sound effect doesn't need to loop since.
-        sound.setFile(i);
-        sound.play();
+        se.setFile(i);
+        se.play();
     }
 
     public int getTileSize() {

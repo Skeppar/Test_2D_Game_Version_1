@@ -16,10 +16,12 @@ public class Player extends Entity{
 
     public final int screenX; // ScreenX/Y will never change, and since they are set to the middle of the screen, where the character is, the character will always be in the center.
     public final int screenY;
+    private int hasKey = 0;
 
-    int hasKey = 0;
 
-
+    public int getHasKey() {
+        return hasKey;
+    }
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -155,11 +157,11 @@ public class Player extends Entity{
                     gp.getObj()[i] = null;
                     System.out.println("Key: " + hasKey);
                 }
-                case "Door" -> {
+                case "Door", "Chest" -> {
                     if(hasKey > 0) {
                         gp.playSE(4);
-                        gp.getObj()[i] = null;
                         hasKey--;
+                        gp.getObj()[i] = null;
                         System.out.println("Key: " + hasKey);
                     }
                 }

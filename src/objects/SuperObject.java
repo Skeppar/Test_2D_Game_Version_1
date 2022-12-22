@@ -54,8 +54,10 @@ public class SuperObject {
     public boolean isCollision() {
         return collision;
     }
-
     public String getName() {
         return name;
+    }
+    public BufferedImage getImage() {
+        return image;
     }
 }
