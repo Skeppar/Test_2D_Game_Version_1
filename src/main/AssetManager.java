@@ -35,10 +35,6 @@ public class AssetManager {
         gp.obj[4].setWorldX(gp.getTileSize() * 12);
         gp.obj[4].setWorldY(gp.getTileSize() * 77);
 
-        gp.obj[5] = new OBJ_Chest();
-        gp.obj[5].setWorldX(gp.getTileSize() * 10);
-        gp.obj[5].setWorldY(gp.getTileSize() * 79);
-
         gp.obj[6] = new OBJ_BlueBoots();
         gp.obj[6].setWorldX(gp.getTileSize() * 20);
         gp.obj[6].setWorldY(gp.getTileSize() * 46);

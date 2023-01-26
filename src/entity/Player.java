@@ -155,20 +155,37 @@ public class Player extends Entity{
                     gp.playSE(1); // Plays sound effect 1, which is named coin.
                     hasKey++;
                     gp.getObj()[i] = null;
-                    System.out.println("Key: " + hasKey);
+                    gp.ui.showMessage("You found a key!"); // Calls the UI method and passes "You found a key!" as a string, which then will be displayed in the UI draw method.
                 }
-                case "Door", "Chest" -> {
+                case "Door" -> {
                     if(hasKey > 0) {
-                        gp.playSE(4);
+                        gp.playSE(4); // Sound effect 4
                         hasKey--;
                         gp.getObj()[i] = null;
                         System.out.println("Key: " + hasKey);
+                        gp.ui.showMessage("You opened the door.");
+                    }
+                    else {
+                        gp.ui.showMessage("You need a key =(");
+                    }
+                }
+                case "Chest" -> {
+                    if(hasKey > 0) {
+                        gp.playSE(4);
+                        hasKey--;
+                        gp.ui.gameFinished = true;
+                        gp.stopMusic();
+                        gp.playSE(4);
+                    }
+                    else {
+                        gp.ui.showMessage("You need a key =(");
                     }
                 }
                 case "Boots" -> {
                     gp.playSE(3);
                     speed += 1;
                     gp.getObj()[i] = null;
+                    gp.ui.showMessage("You found a pair of boots!");
                 }
             }
         }
