@@ -3,6 +3,7 @@ package main;
 import objects.OBJ_Key;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 
 public class UI {
 
@@ -16,6 +17,7 @@ public class UI {
     int messageCounter = 0;
     public boolean gameFinished = false;
     double playTime;
+    DecimalFormat dFormat = new DecimalFormat("#0.00");
 
     public UI(GamePanel gp) {
 
@@ -51,6 +53,12 @@ public class UI {
             y = gp.screenHeight/2 - gp.tileSize*3;
             g2.drawString(text, x, y);
 
+            text = "Your time is : " + dFormat.format(playTime) + "!";
+            textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth(); // This gets the length of the string "text" so that we can display it in the middle of the screen.
+            x = gp.screenWidth/2 - textLength/2;
+            y = gp.screenHeight/2 + gp.tileSize*4;
+            g2.drawString(text, x, y);
+
             g2.setFont(arial_80B);
             g2.setColor(Color.yellow);
             text = "Congratulations!";
@@ -71,7 +79,7 @@ public class UI {
 
             // Time
             playTime +=(double)1/60;
-            g2.drawString("Time: " + playTime, gp.tileSize*11, 65);
+            g2.drawString("Time: " +dFormat.format(playTime), gp.tileSize*11, 65);
 
             // On screen message.
             if (messageOn) {
