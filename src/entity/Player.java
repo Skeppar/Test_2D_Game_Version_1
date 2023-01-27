@@ -171,11 +171,10 @@ public class Player extends Entity{
                 }
                 case "Chest" -> {
                     if(hasKey > 0) {
-                        gp.playSE(4);
                         hasKey--;
                         gp.ui.gameFinished = true;
                         gp.stopMusic();
-                        gp.playSE(4);
+                        gp.playSE(2);
                     }
                     else {
                         gp.ui.showMessage("You need a key =(");
