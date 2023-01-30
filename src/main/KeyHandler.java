@@ -7,6 +7,9 @@ public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, shiftPressed;
 
+    // Debug
+    boolean checkDrawTime = false;
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -35,6 +38,16 @@ public class KeyHandler implements KeyListener {
 
         if(code == KeyEvent.VK_SHIFT) { // Not in use, use for sprint later.
             shiftPressed = true;
+        }
+
+        // Debug on and off
+        if(code == KeyEvent.VK_T) {
+            if(checkDrawTime == false) {
+                checkDrawTime = true;
+            }
+            else {
+                checkDrawTime = false;
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package tiles;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -26,6 +27,8 @@ public class TileManager {
 
     public void getTitleImage() {
 
+        /*
+        // This is all works for drawing the images but makes drawing a bit slower.
         try {
 
             tile[0] = new Tile();
@@ -53,6 +56,32 @@ public class TileManager {
             tile[6] = new Tile();
             tile[6].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Sakura_tree_test.png")));
             tile[6].collision = true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+         */
+
+        setUp(0, "Grass_1", false);
+        setUp(1, "Wall_1", true);
+        setUp(2, "Water_1", true);
+        setUp(3, "Sand_1", false);
+        setUp(4, "Dirt_1", false);
+        setUp(5, "Tree_1", true);
+        setUp(6, "Sakura_tree_test", true);
+
+    }
+
+    public void setUp(int index, String imageName, boolean collision) {
+
+        UtilityTool uTool = new UtilityTool();
+
+        try {
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/" + imageName + ".png")));
+            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].collision = collision;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,7 +142,8 @@ public class TileManager {
                 worldY + gp.tileSize > gp.getPlayer().worldY - gp.getPlayer().screenY &&
                 worldY - gp.tileSize < gp.getPlayer().worldY + gp.getPlayer().screenY) {
 
-                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                //g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null); // No longer need to draw tileSize every time.
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
             }
 
             worldCol++;

@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -48,6 +49,8 @@ public class Player extends Entity{
 
     public void getPlayerImage() {
 
+        /*
+        // Don't need all of these anymore since we have optimized it.
         try {
 
             // up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/2D_Character_Away_Moving_1.png")); // IntelliJ recommends requireNonNull. It doesn't make a difference in functionality, since either way if it's null it won't work.
@@ -65,6 +68,35 @@ public class Player extends Entity{
         }catch (IOException e) {
             e.printStackTrace();
         }
+
+         */
+
+        up1 = setUp("2D_Character_Away_Moving_1");
+        up2 = setUp("2D_Character_Away_Moving_2");
+        still = setUp("2D_Character_Away_Still");
+        down1 = setUp("2D_Character_Front_Moving_1");
+        down2 = setUp("2D_Character_Front_Moving_2");
+        dStill = setUp("2D_Character_Front_Still");
+        right1 = setUp("2D_Character_Right_Moving_1");
+        right2 = setUp("2D_Character_Right_Moving_2");
+        left1 = setUp("2D_Character_Left_Moving_1");
+        left2 = setUp("2D_Character_Left_Moving_2");
+
+    }
+
+    public BufferedImage setUp(String imageName) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/" + imageName + ".png")));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 
     public void update() {
@@ -238,6 +270,7 @@ public class Player extends Entity{
             }
             default -> image = still;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        // g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null); // Don't need to draw these every time, same as in TileManager
+        g2.drawImage(image, screenX, screenY, null);
     }
 }

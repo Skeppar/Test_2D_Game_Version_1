@@ -153,11 +153,18 @@ public class GamePanel extends JPanel implements Runnable {
         // paintComponent is a built-in method in Java as a way to draw on JPanel.
 
         super.paintComponent(g); // Super means the parent class of this class, which is JPanel.
-
         Graphics2D g2 = (Graphics2D) g;
 
+        // Debug
+        long drawStart = 0;
+        if(keyH.checkDrawTime) {
+            drawStart = System.nanoTime();
+        }
+
+        // Title
         tileM.draw(g2); // This has to be before player so that the player is on top of the tiles.
 
+        // Object
         for (SuperObject superObject : obj) { // obj.length is the length of the obj array in this class.
             if (superObject != null) { // Check if the obj is null.
                 superObject.draw(g2, this);
@@ -169,6 +176,15 @@ public class GamePanel extends JPanel implements Runnable {
 
         // UI
         ui.draw(g2);
+
+        // Debug
+        if(keyH.checkDrawTime) {
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.white);
+            g2.drawString("Draw time: " + passed, 10, 400);
+            System.out.println("Draw time: " + passed);
+        }
 
         g2.dispose(); // Works without but this saves some memory.
 
