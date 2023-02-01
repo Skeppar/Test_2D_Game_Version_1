@@ -28,6 +28,7 @@ public class SuperObject {
                 worldY - gp.tileSize < gp.getPlayer().worldY + gp.getPlayer().screenY) {
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            // g2.drawImage(image, screenX, screenY, gp.tileSize*2, gp.tileSize*2, null); // This would draw all the objects but larger
         }
 
     }

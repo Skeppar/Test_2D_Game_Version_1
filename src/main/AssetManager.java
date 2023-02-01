@@ -16,28 +16,24 @@ public class AssetManager {
     public void setObject() {
 
         gp.obj[0] = new OBJ_Key(gp);
-        gp.obj[0].setWorldX(gp.getTileSize() * 32);
-        gp.obj[0].setWorldY(gp.getTileSize() * 50);
+        gp.obj[0].setWorldX(gp.getTileSize() * 41);
+        gp.obj[0].setWorldY(gp.getTileSize() * 41);
 
         gp.obj[1] = new OBJ_Key(gp);
-        gp.obj[1].setWorldX(gp.getTileSize() * 15);
-        gp.obj[1].setWorldY(gp.getTileSize() * 45);
+        gp.obj[1].setWorldX(gp.getTileSize() * 8);
+        gp.obj[1].setWorldY(gp.getTileSize() * 38);
 
         gp.obj[2] = new OBJ_Door(gp);
-        gp.obj[2].setWorldX(gp.getTileSize() * 15);
-        gp.obj[2].setWorldY(gp.getTileSize() * 66);
+        gp.obj[2].setWorldX(gp.getTileSize() * 38);
+        gp.obj[2].setWorldY(gp.getTileSize() * 14);
 
-        gp.obj[3] = new OBJ_Door(gp);
-        gp.obj[3].setWorldX(gp.getTileSize() * 32);
-        gp.obj[3].setWorldY(gp.getTileSize() * 23);
+        gp.obj[3] = new OBJ_Chest(gp);
+        gp.obj[3].setWorldX(gp.getTileSize() * 38);
+        gp.obj[3].setWorldY(gp.getTileSize() * 12);
 
-        gp.obj[4] = new OBJ_Chest(gp);
-        gp.obj[4].setWorldX(gp.getTileSize() * 12);
-        gp.obj[4].setWorldY(gp.getTileSize() * 77);
-
-        gp.obj[6] = new OBJ_BlueBoots(gp);
-        gp.obj[6].setWorldX(gp.getTileSize() * 20);
-        gp.obj[6].setWorldY(gp.getTileSize() * 46);
+        gp.obj[4] = new OBJ_BlueBoots(gp);
+        gp.obj[4].setWorldX(gp.getTileSize() * 16);
+        gp.obj[4].setWorldY(gp.getTileSize() * 28);
 
     }
 }

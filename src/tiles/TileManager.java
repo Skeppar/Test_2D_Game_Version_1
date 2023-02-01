@@ -19,10 +19,10 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[50];
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTitleImage();
-        loadMap("maps/bigTestMap.txt");
+        loadMap("maps/newTestMap.txt");
     }
 
     public void getTitleImage() {
@@ -63,13 +63,57 @@ public class TileManager {
 
          */
 
-        setUp(0, "Grass_1", false);
-        setUp(1, "Wall_1", true);
-        setUp(2, "Water_1", true);
-        setUp(3, "Sand_1", false);
-        setUp(4, "Dirt_1", false);
-        setUp(5, "Tree_1", true);
-        setUp(6, "Sakura_tree_test", true);
+
+        // Placeholder, start at 10 so the map doesn't look weird in the text file.
+
+        // Something isn't working, all tiles read as index 0 and don't know why.
+        setUp(0, "Grass_0", false);
+        setUp(1, "Grass_1", false);
+        setUp(2, "Grass_1", false);
+        setUp(3, "Grass_1", false);
+        setUp(4, "Grass_1", false);
+        setUp(5, "Grass_1", false);
+        setUp(6, "Grass_1", false);
+        setUp(7, "Grass_1", false);
+        setUp(8, "Grass_1", false);
+        setUp(9, "Grass_1", false);
+
+        // Actual tiles
+        setUp(10, "Grass_0", false);
+        setUp(11, "Grass_1", false);
+        setUp(12, "Dirt_1", false);
+        setUp(13, "Road_1", false);
+        setUp(14, "Road_2", false);
+        setUp(15, "Road_3", false);
+        setUp(16, "Road_4", false);
+        setUp(17, "Road_5", false);
+        setUp(18, "Road_6", false);
+        setUp(19, "Road_7", false);
+        setUp(20, "Road_8", false);
+        setUp(21, "Road_9", false);
+        setUp(22, "Road_10", false);
+        setUp(23, "Road_11", false);
+        setUp(24, "Road_12", false);
+        setUp(25, "Water_0", true);
+        setUp(26, "Water_1", true);
+        setUp(27, "Water_2", true);
+        setUp(28, "Water_3", true);
+        setUp(29, "Water_4", true);
+        setUp(30, "Water_5", true);
+        setUp(31, "Water_6", true);
+        setUp(32, "Water_7", true);
+        setUp(33, "Water_8", true);
+        setUp(34, "Water_9", true);
+        setUp(35, "Water_10", true);
+        setUp(36, "Water_11", true);
+        setUp(37, "Water_12", true);
+        setUp(38, "Water_13", true);
+        setUp(39, "Water_14", true);
+        setUp(40, "Tree_1", true);
+        setUp(41, "Sand_1", false);
+        setUp(42, "Wall_1", true);
+
+
 
     }
 
