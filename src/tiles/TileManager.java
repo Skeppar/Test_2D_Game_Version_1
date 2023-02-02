@@ -22,7 +22,8 @@ public class TileManager {
         tile = new Tile[50];
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTitleImage();
-        loadMap("maps/newTestMap.txt");
+        loadMap("maps/newTileMap.txt");
+        // If changing map remember to change maxWorldCol and maxWorldRow in GP!
     }
 
     public void getTitleImage() {
@@ -44,7 +45,7 @@ public class TileManager {
             tile[2].collision = true;
 
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Sand_1.png")));
+            tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Road_0.png")));
 
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/Dirt_1.png")));
@@ -65,8 +66,6 @@ public class TileManager {
 
 
         // Placeholder, start at 10 so the map doesn't look weird in the text file.
-
-        // Something isn't working, all tiles read as index 0 and don't know why.
         setUp(0, "Grass_0", false);
         setUp(1, "Grass_1", false);
         setUp(2, "Grass_1", false);
@@ -81,7 +80,7 @@ public class TileManager {
         // Actual tiles
         setUp(10, "Grass_0", false);
         setUp(11, "Grass_1", false);
-        setUp(12, "Dirt_1", false);
+        setUp(12, "Road_0", false);
         setUp(13, "Road_1", false);
         setUp(14, "Road_2", false);
         setUp(15, "Road_3", false);
@@ -110,8 +109,9 @@ public class TileManager {
         setUp(38, "Water_13", true);
         setUp(39, "Water_14", true);
         setUp(40, "Tree_1", true);
-        setUp(41, "Sand_1", false);
+        setUp(41, "Dirt_1", false);
         setUp(42, "Wall_1", true);
+        setUp(43, "Grass_2", false);
 
 
 

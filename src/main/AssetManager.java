@@ -24,12 +24,12 @@ public class AssetManager {
         gp.obj[1].setWorldY(gp.getTileSize() * 38);
 
         gp.obj[2] = new OBJ_Door(gp);
-        gp.obj[2].setWorldX(gp.getTileSize() * 38);
-        gp.obj[2].setWorldY(gp.getTileSize() * 14);
+        gp.obj[2].setWorldX(gp.getTileSize() * 37);
+        gp.obj[2].setWorldY(gp.getTileSize() * 13);
 
         gp.obj[3] = new OBJ_Chest(gp);
-        gp.obj[3].setWorldX(gp.getTileSize() * 38);
-        gp.obj[3].setWorldY(gp.getTileSize() * 12);
+        gp.obj[3].setWorldX(gp.getTileSize() * 37);
+        gp.obj[3].setWorldY(gp.getTileSize() * 11);
 
         gp.obj[4] = new OBJ_BlueBoots(gp);
         gp.obj[4].setWorldX(gp.getTileSize() * 16);
