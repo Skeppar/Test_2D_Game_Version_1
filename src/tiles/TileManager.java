@@ -112,6 +112,7 @@ public class TileManager {
         setUp(41, "Dirt_1", false);
         setUp(42, "Wall_1", true);
         setUp(43, "Grass_2", false);
+        setUp(44, "Tree_2", true);
 
 
 
