@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // System
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
+    KeyHandler keyH = new KeyHandler(this); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
     Sound music = new Sound();
     Sound se = new Sound();
     CollisionCheck cCheck = new CollisionCheck(this);
@@ -46,6 +46,11 @@ public class GamePanel extends JPanel implements Runnable {
     // Entity and Object
     Player player = new Player(this, keyH);
     SuperObject[] obj = new SuperObject[10];
+
+    // Game State
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
     public GamePanel() {
 
@@ -61,6 +66,8 @@ public class GamePanel extends JPanel implements Runnable {
         aManager.setObject();
 
         playMusic(0); // Plays the theme song.
+
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -146,7 +153,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
-        player.update();
+        if(gameState == playState) {
+            player.update();
+        }
+        if(gameState == pauseState) {
+            //Nothing for now
+        }
     }
 
     public void paintComponent(Graphics g) {

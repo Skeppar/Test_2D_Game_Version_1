@@ -17,12 +17,14 @@ public class Player extends Entity{
 
     public final int screenX; // ScreenX/Y will never change, and since they are set to the middle of the screen, where the character is, the character will always be in the center.
     public final int screenY;
-    private int hasKey = 0;
+    // private int hasKey = 0;
 
-
+/*
     public int getHasKey() {
         return hasKey;
     }
+
+ */
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -180,6 +182,7 @@ public class Player extends Entity{
     public void pickUpObject(int i) {
 
         if (i != 999) {
+            /*
             String objectName = gp.getObj()[i].getName();
 
             switch (objectName) {
@@ -219,6 +222,8 @@ public class Player extends Entity{
                     gp.ui.showMessage("You found a pair of boots!");
                 }
             }
+
+             */
         }
     }
 

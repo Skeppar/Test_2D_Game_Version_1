@@ -15,6 +15,7 @@ public class AssetManager {
 
     public void setObject() {
 
+        /*
         gp.obj[0] = new OBJ_Key(gp);
         gp.obj[0].setWorldX(gp.getTileSize() * 41);
         gp.obj[0].setWorldY(gp.getTileSize() * 41);
@@ -34,6 +35,8 @@ public class AssetManager {
         gp.obj[4] = new OBJ_BlueBoots(gp);
         gp.obj[4].setWorldX(gp.getTileSize() * 16);
         gp.obj[4].setWorldY(gp.getTileSize() * 28);
+
+         */
 
     }
 }
