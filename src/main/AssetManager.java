@@ -1,5 +1,6 @@
 package main;
 
+import entity.NPC_OldMan;
 import objects.OBJ_BlueBoots;
 import objects.OBJ_Chest;
 import objects.OBJ_Door;
@@ -38,5 +39,12 @@ public class AssetManager {
 
          */
 
+    }
+
+    public void setNPC() {
+
+        gp.npc[0] = new NPC_OldMan(gp);
+        gp.npc[0].worldX = gp.getTileSize()*12;
+        gp.npc[0].worldY = gp.getTileSize()*23;
     }
 }

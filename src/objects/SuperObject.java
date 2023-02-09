@@ -30,7 +30,6 @@ public class SuperObject {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             // g2.drawImage(image, screenX, screenY, gp.tileSize*2, gp.tileSize*2, null); // This would draw all the objects but larger
         }
-
     }
 
     public void setWorldX(int worldX) {

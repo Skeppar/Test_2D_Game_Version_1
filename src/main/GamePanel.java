@@ -1,5 +1,6 @@
 package main;
 
+import entity.Entity;
 import entity.Player;
 import objects.OBJ_Key;
 import objects.SuperObject;
@@ -7,6 +8,7 @@ import tiles.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.security.PublicKey;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -46,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     // Entity and Object
     Player player = new Player(this, keyH);
     SuperObject[] obj = new SuperObject[10];
+    public Entity npc[] = new Entity[10];
 
     // Game State
     public int gameState;
@@ -64,6 +67,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void setUpGame() {
 
         aManager.setObject();
+
+        aManager.setNPC();
 
         playMusic(0); // Plays the theme song.
 
@@ -154,7 +159,15 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
 
         if(gameState == playState) {
+            // Player
             player.update();
+
+            // NOC
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].update();
+                }
+            }
         }
         if(gameState == pauseState) {
             //Nothing for now
@@ -180,6 +193,13 @@ public class GamePanel extends JPanel implements Runnable {
         for (SuperObject superObject : obj) { // obj.length is the length of the obj array in this class.
             if (superObject != null) { // Check if the obj is null.
                 superObject.draw(g2, this);
+            }
+        }
+
+        // NPC
+        for(int i = 0; i < npc.length; i++) {
+            if (npc[i] != null) {
+                npc[i].draw(g2);
             }
         }
 

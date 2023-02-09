@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class Player extends Entity{
 
-    GamePanel gp;
+    // GamePanel gp; // No longer need this since we use super(gp) instead.
     KeyHandler keyH;
 
     public final int screenX; // ScreenX/Y will never change, and since they are set to the middle of the screen, where the character is, the character will always be in the center.
@@ -27,7 +27,9 @@ public class Player extends Entity{
  */
 
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+
+        super(gp); // Calls the constructor from Entity and passes this gp.
+        // this.gp = gp;
         this.keyH = keyH;
 
         screenX = gp.getScreenWidth()/2 - (gp.tileSize/2);
@@ -73,18 +75,21 @@ public class Player extends Entity{
 
          */
 
-        up1 = setUp("2D_Character_Away_Moving_1");
-        up2 = setUp("2D_Character_Away_Moving_2");
-        still = setUp("2D_Character_Away_Still");
-        down1 = setUp("2D_Character_Front_Moving_1");
-        down2 = setUp("2D_Character_Front_Moving_2");
-        dStill = setUp("2D_Character_Front_Still");
-        right1 = setUp("2D_Character_Right_Moving_1");
-        right2 = setUp("2D_Character_Right_Moving_2");
-        left1 = setUp("2D_Character_Left_Moving_1");
-        left2 = setUp("2D_Character_Left_Moving_2");
+        up1 = setUp("player/2D_Character_Away_Moving_1");
+        up2 = setUp("player/2D_Character_Away_Moving_2");
+        still = setUp("player/2D_Character_Away_Still");
+        down1 = setUp("player/2D_Character_Front_Moving_1");
+        down2 = setUp("player/2D_Character_Front_Moving_2");
+        dStill = setUp("player/2D_Character_Front_Still");
+        right1 = setUp("player/2D_Character_Right_Moving_1");
+        right2 = setUp("player/2D_Character_Right_Moving_2");
+        left1 = setUp("player/2D_Character_Left_Moving_1");
+        left2 = setUp("player/2D_Character_Left_Moving_2");
 
     }
+
+    /*
+    // Since we'll use this in several places it's better to move it to Entity.
 
     public BufferedImage setUp(String imageName) {
 
@@ -100,6 +105,8 @@ public class Player extends Entity{
         }
         return image;
     }
+
+     */
 
     public void update() {
 
@@ -131,6 +138,10 @@ public class Player extends Entity{
             // Check object collision.
             int objIndex = gp.getcCheck().checkObject(this, true);
             pickUpObject(objIndex);
+
+            // Check NPC collision
+            int npcIndex = gp.getcCheck().checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
 
             // If collision is false player can move.
             if(!collisionOn) {
@@ -224,6 +235,13 @@ public class Player extends Entity{
             }
 
              */
+        }
+    }
+
+    public void interactNPC(int i) {
+
+        if (i != 999) {
+            System.out.println("You hit an NPC");
         }
     }
 
