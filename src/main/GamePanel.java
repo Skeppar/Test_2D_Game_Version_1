@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // System
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
+    public KeyHandler keyH = new KeyHandler(this); // Instantiate the KeyHandler class and add it to GamePanel so that the GamePanel can recognize the key input.
     Sound music = new Sound();
     Sound se = new Sound();
     CollisionCheck cCheck = new CollisionCheck(this);
@@ -54,6 +54,8 @@ public class GamePanel extends JPanel implements Runnable {
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
+
+    public final int dialogueState = 3;
 
     public GamePanel() {
 

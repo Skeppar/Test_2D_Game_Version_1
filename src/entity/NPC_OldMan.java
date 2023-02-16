@@ -14,6 +14,7 @@ public class NPC_OldMan extends Entity{
         speed = 2;
 
         getImage();
+        setDialogue();
 
     }
 
@@ -27,6 +28,15 @@ public class NPC_OldMan extends Entity{
         right2 = setUp("NPC/oldman_right_2");
         left1 = setUp("NPC/oldman_left_1");
         left2 = setUp("NPC/oldman_left_2");
+    }
+
+    public void setDialogue() {
+
+        dialogues[0] = "Hello adventurer";
+        dialogues[1] = "I heard you came to this \nisland in search of treasure.";
+        dialogues[2] = "I used to be a wizard you know, but then I got old. \nNow I just help guide others to treasures.";
+        dialogues[3] = "I wish you the best of luck.";
+
     }
 
     public void setAction() {
@@ -50,5 +60,11 @@ public class NPC_OldMan extends Entity{
 
             actionLockCounter = 0;
         }
+    }
+
+    public void speak() {
+
+        // The program would work without this method since we have it in Entity, however, if we want to have NPC specific things this makes it possible to customize each NPC.
+        super.speak(); // Calls the method from Entity since we might want to use it several times for other NPCs in the future.
     }
 }

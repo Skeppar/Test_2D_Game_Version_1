@@ -17,6 +17,10 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public boolean gameFinished = false;
+
+    public String currentDialogue = "";
+
+    // Not using this anymore, but it was used to display the time it took to finish the game when you had to open the chest.
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
 
@@ -43,13 +47,19 @@ public class UI {
         g2.setFont(arial_80B);
         g2.setColor(Color.white);
 
+        // Play state
         if(gp.gameState == gp.playState) {
             // Add this later
         }
+        // Pause state
         if(gp.gameState == gp.pauseState) {
             drawPauseScreen();
             gp.stopMusic();
             // Music doesn't play when playing again, fix this later.
+        }
+        // Dialogue state
+        if (gp.gameState == gp.dialogueState) {
+            drawDialogueScreen();
         }
 
         /*
@@ -122,6 +132,40 @@ public class UI {
         int y = gp.screenHeight/2;
 
         g2.drawString(text, x, y);
+    }
+
+    public void drawDialogueScreen() {
+
+        // Dialogue window
+        int x = gp.tileSize * 2;
+        int y = gp.tileSize / 2;
+        int width = gp.screenWidth - (gp.tileSize * 4);
+        int height = gp.tileSize * 5;
+
+        drawSubWindow(x, y, width, height);
+
+        // Give x & y new values and draw the text inside the window we made.
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+        x += gp.tileSize;
+        y += gp.tileSize;
+
+        for (String line : currentDialogue.split("\n")) { // Can break the line on any symbol, but used \n since it's what you normally use.
+            g2.drawString(line, x, y);
+            y += 40;
+        }
+    }
+
+    public void drawSubWindow(int x, int y, int width, int height) {
+
+        Color c = new Color(0, 0, 0, 200); // Fourth number is the alpha value, which is the opacity.
+        g2.setColor(c);
+        // g2.setColor(Color.black); // We can write like this, but if we want to be more precise we can create our own color with rgb as seen above.
+        g2.fillRoundRect(x, y, width, height, 30, 30); // Rounds the edges of the rectangle.
+
+        c = new Color(255, 255, 255);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5)); // This defines the width of the outlines of graphics rendered with Graphics2D.
+        g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25); // Since this rectangle is smaller the arc W/H has to be a bit smaller, otherwise the corners look weird.
     }
 
     public int getXForCenteredText(String text) {

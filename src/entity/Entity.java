@@ -23,6 +23,8 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
+    String dialogues[] = new String[20]; // Now we can have up to 20 dialogues.
+    int dialogueIndex = 0;
 
     // Entity always gets instantiated in another class like in the player class.
     public Entity(GamePanel gp) {
@@ -30,6 +32,30 @@ public class Entity {
     }
 
     public void setAction() {}
+    public void speak() {
+
+        if (dialogues[dialogueIndex] == null) {
+            dialogueIndex = 0; // If you finished the conversation this will reset it. Avoids null point and lets you read the conversation again if you missed something.
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex ++;
+
+        // Character will now face the player when talking to them.
+        switch (gp.getPlayer().direction) {
+            case "up" -> {
+                direction = "down";
+            }
+            case "down" -> {
+                direction = "up";
+            }
+            case "left" -> {
+                direction = "right";
+            }
+            case "right" -> {
+                direction = "left";
+            }
+        }
+    }
     public void update() {
 
         setAction(); // If a subclass has the same method it takes priority, so we don't need anything in setAction here since it takes it from the setAction in NPC_OldMan.
