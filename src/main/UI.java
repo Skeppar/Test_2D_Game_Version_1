@@ -3,6 +3,8 @@ package main;
 import objects.OBJ_Key;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 
 public class UI {
@@ -11,7 +13,7 @@ public class UI {
 
     GamePanel gp;
     Graphics2D g2;
-    Font arial_40, arial_80B;
+    Font arial_40, arial_80B, maruMonica, bellmore;
     // BufferedImage keyImage;
     public boolean messageOn = false;
     public String message = "";
@@ -28,10 +30,21 @@ public class UI {
 
         this.gp = gp;
 
-        arial_40 = new Font("Arial", Font.PLAIN, 40);
-        arial_80B = new Font("Arial", Font.BOLD, 80);
+        //arial_40 = new Font("Arial", Font.PLAIN, 40);
+        //arial_80B = new Font("Arial", Font.BOLD, 80);
         // OBJ_Key key = new OBJ_Key(gp);
         // keyImage = key.getImage();
+
+        try {
+            // Unsupported sfnt means the font is not a TrueType (ttf) font. Even if the file name says ttf it may not be correct.
+            InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+            assert is != null;
+            maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
+            is = getClass().getResourceAsStream("/font/BellmoreFree-1GB2M.ttf"); // Some characters don't work properly.
+            bellmore = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (FontFormatException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void showMessage(String text) {
@@ -44,7 +57,7 @@ public class UI {
 
         this.g2 = g2;
 
-        g2.setFont(arial_80B);
+        g2.setFont(maruMonica);
         g2.setColor(Color.white);
 
         // Play state
@@ -145,7 +158,7 @@ public class UI {
         drawSubWindow(x, y, width, height);
 
         // Give x & y new values and draw the text inside the window we made.
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 42F));
         x += gp.tileSize;
         y += gp.tileSize;
 
