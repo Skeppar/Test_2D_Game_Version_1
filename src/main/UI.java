@@ -19,8 +19,10 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public boolean gameFinished = false;
-
     public String currentDialogue = "";
+
+    public int commandNum = 0;
+
 
     // Not using this anymore, but it was used to display the time it took to finish the game when you had to open the chest.
     double playTime;
@@ -59,6 +61,11 @@ public class UI {
 
         g2.setFont(maruMonica);
         g2.setColor(Color.white);
+
+        // Title state
+        if(gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        }
 
         // Play state
         if(gp.gameState == gp.playState) {
@@ -138,6 +145,60 @@ public class UI {
          */
     }
 
+    public void drawTitleScreen() {
+
+        // Background color
+        g2.setColor(new Color(205, 0, 125, 215));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        // Title name
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 150F));
+        String titleName = "My tiny adventure";
+        int x = getXForCenteredText(titleName);
+        int y = gp.tileSize * 3;
+
+        // Shadow for title text
+        g2.setColor(new Color (45, 45, 45));
+        g2.drawString(titleName, x + 8, y + 8);
+
+        // Title Color
+        g2.setColor(Color.white);
+        g2.drawString(titleName, x, y);
+
+        // Display character image
+        x = gp.screenWidth / 2 - (gp.tileSize*2)/2; // * 2 since the character is double it's size, and divide by to make sure it's in the middle and the left side doesn't start in the middle.
+        y = gp.tileSize * 5;
+        g2.drawImage(gp.player.still1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+
+        // Menu
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+        String start = "New Game";
+        x = getXForCenteredText(start);
+        y += gp.tileSize * 4;
+        g2.drawString(start, x, y);
+        if(commandNum == 0) {
+            g2.drawString(">", x - gp.tileSize, y); // Can use g2.drawImage instead if you want an image instead of text.
+        }
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+        String load = "Load Game";
+        x = getXForCenteredText(load);
+        y += gp.tileSize * 1.1;
+        g2.drawString(load, x, y);
+        if(commandNum == 1) {
+            g2.drawString(">", x - gp.tileSize, y); //
+        }
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+        String quit = "Quit Game";
+        x = getXForCenteredText(quit);
+        y += gp.tileSize * 1.1;
+        g2.drawString(quit, x, y);
+        if(commandNum == 2) {
+            g2.drawString(">", x - gp.tileSize, y); //
+        }
+
+    }
     public void drawPauseScreen() {
 
         String text = "Game Paused";

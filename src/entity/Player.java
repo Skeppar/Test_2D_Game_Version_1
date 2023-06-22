@@ -2,13 +2,9 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 
 public class Player extends Entity{
 
@@ -77,7 +73,8 @@ public class Player extends Entity{
 
         up1 = setUp("player/2D_Character_Away_Moving_1");
         up2 = setUp("player/2D_Character_Away_Moving_2");
-        still = setUp("player/2D_Character_Away_Still");
+        still1 = setUp("player/2D_Character_Front_Still");
+        still2 = setUp("player/2D_Character_Front_Still2"); // Not in use, add idle animation later.
         down1 = setUp("player/2D_Character_Front_Moving_1");
         down2 = setUp("player/2D_Character_Front_Moving_2");
         dStill = setUp("player/2D_Character_Front_Still");
@@ -296,7 +293,8 @@ public class Player extends Entity{
                     image = right2;
                 }
             }
-            default -> image = still;
+            default -> image = still1;
+            // Add idle animation later.
         }
         // g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null); // Don't need to draw these every time, same as in TileManager
         g2.drawImage(image, screenX, screenY, null);

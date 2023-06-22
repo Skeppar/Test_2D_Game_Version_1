@@ -14,7 +14,7 @@ public class Entity {
     GamePanel gp;
     public int worldX, worldY;
     public int speed;
-    public BufferedImage still, up1, up2, dStill, down1, down2, right1, right2, left1, left2;
+    public BufferedImage still1, still2, up1, up2, dStill, down1, down2, right1, right2, left1, left2;
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -23,7 +23,7 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
-    String dialogues[] = new String[20]; // Now we can have up to 20 dialogues.
+    String[] dialogues = new String[20]; // Now we can have up to 20 dialogues.
     int dialogueIndex = 0;
 
     // Entity always gets instantiated in another class like in the player class.
@@ -153,7 +153,7 @@ public class Entity {
                         image = right2;
                     }
                 }
-                default -> image = still;
+                default -> image = still1;
             }
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
